@@ -1,0 +1,28 @@
+﻿@model IList<string>
+@{
+    ViewData["Title"] = "UserRoles";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<h1>نقش های کاربر</h1>
+<a asp-action="Index"> نقش های کاربر : @ViewBag.UserInfo</a>
+<table class="table">
+    <thead>
+    <tr>
+        <td>نقش ها</td>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+

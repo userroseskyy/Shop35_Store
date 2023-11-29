@@ -1,0 +1,33 @@
+﻿@model Shop35_Store.Domain.Entities.Roles.DetailRoleDto
+
+@{
+    ViewData["Title"] = "اطلاعات  نقش ها";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>جزئیات</h1>
+
+<div>
+    <h4>جزئیات نقشها</h4>
+    <hr />
+    <dl class="row">
+        
+        
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("ویرایش", "Edit", new {  id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>
