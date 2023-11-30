@@ -52,16 +52,16 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             if (result.Succeeded)
             {
-                //var token = _userManager.GenerateEmailConfirmationTokenAsync(newUser).Result;
-                //string callbakUrl = Url.Action("ConfirmEmail", "Account", new
-                //    { UserId = newUser.Id, token = token }, protocol: Request.Scheme);
-                //string body =
-                //    $"لطفا برای فعال سازی حساب کاربری خود بر روی لینک زیر کلیک نمائید.<br> <a  href={callbakUrl}> link</a>";
-                //_emailService.Execute(newUser.Email, body, "فعال سازی حساب کاربر");
+                var token = _userManager.GenerateEmailConfirmationTokenAsync(newUser).Result;
+                string callbakUrl = Url.Action("ConfirmEmail", "Account", new
+                { UserId = newUser.Id, token = token }, protocol: Request.Scheme);
+                string body =
+                    $"لطفا برای فعال سازی حساب کاربری خود بر روی لینک زیر کلیک نمائید.<br> <a  href={callbakUrl}> link</a>";
+                _emailService.Execute(newUser.Email, body, "فعال سازی حساب کاربر");
 
 
 
-                return RedirectToAction("Index", "Home"/*"DisplayEmail"*/);
+                return RedirectToAction("DisplayEmail");
             }
 
 
