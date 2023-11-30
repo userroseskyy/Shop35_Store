@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Shop35_Store.Infrastructure/Service/EmailService.cs
+/Shop35_Store.Infrastructure/Service/EmailService.cs
