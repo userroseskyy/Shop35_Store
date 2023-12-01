@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
-
+using NuGet.Common;
 using Shop35_Store.Domain.Entities.Users;
 using Shop35_Store.Infrastructure.Service;
+using System.Configuration;
 
 
 namespace EndPoint.Site.Areas.Admin.Controllers
@@ -12,13 +13,13 @@ namespace EndPoint.Site.Areas.Admin.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly EmailService _emailService;
+        private readonly EmailSender _emailSender;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailService = new EmailService();
+            _emailSender = new EmailSender(configuration);
         }
 
         public IActionResult Index()
@@ -57,7 +58,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 { UserId = newUser.Id, token = token }, protocol: Request.Scheme);
                 string body =
                     $"لطفا برای فعال سازی حساب کاربری خود بر روی لینک زیر کلیک نمائید.<br> <a  href={callbakUrl}> link</a>";
-                _emailService.Execute(newUser.Email, body, "فعال سازی حساب کاربر");
+                _emailSender.SendEmail(newUser.Email, body, "فعال سازی حساب کاربر");
 
 
 
@@ -81,6 +82,16 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult ConfirmEmail(string UserId, string token)
         {
+            if (UserId == null || Token == null)
+            {
+                return BadRequest();
+
+            }
+            var user = _userManager.FindByIdAsync(UserId).Result;
+            if (user == null)
+            {
+                return View("Error");
+            }
             return View();
 
         }
