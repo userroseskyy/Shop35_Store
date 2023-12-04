@@ -363,3 +363,6 @@ MigrationBackup/
 FodyWeavers.xsd
 
 /EndPoint.Site/appsettings.json
+
+
+/Shop35_Store.Infrastructure/Service/SmsService.cs
