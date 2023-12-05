@@ -27,7 +27,30 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            return View();
+           var user= _userManager.FindByNameAsync(User.Identity.Name).Result;
+            MyAccountInfoDto myAccount = new MyAccountInfoDto()
+            {
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                FullName =$"{user.FirstName} {user.LastName}" ,
+                Id= user.Id,
+                PhoneNumber=user.PhoneNumber,
+                PhoneNumberConfirmed=user.PhoneNumberConfirmed,
+                ToFactorEnabled=user.TwoFactorEnabled,
+                UserName=user.UserName
+                
+            };
+
+
+            return View(myAccount);
+        }
+        [Authorize]
+        [HttpGet]
+        public IActionResult ToFactorEnabled()
+        {
+            var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
+            var result = _userManager.SetTwoFactorEnabledAsync(user, !user.TwoFactorEnabled).Result;
+            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
