@@ -4,18 +4,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>حساب من</h1>
 
 <div>
-    <h4>MyAccountInfoDto</h4>
+    <h4>اطلاعات حساب کاربری</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
+        
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FullName)
         </dt>
@@ -57,18 +52,18 @@
             }
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ToFactorEnabled)
+            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ToFactorEnabled)
-            @if(Model.ToFactorEnabled){
+            @Html.DisplayFor(model => model.TwoFactorEnabled)
+            @if(Model.TwoFactorEnabled){
                <b style="color=#229607">نیاز به ورود دومرحله ای</b>
             }
             else{
                 <b style="color=#ff0000"> ورود تک مرحله ای</b>
             }
             <br />
-            <a asp-action="ToFactorEnabled">برای تغییر کلیک کنید</a>
+            <a asp-action="TwoFactorEnabled">برای تغییر کلیک کنید</a>
 
         </dd>
     </dl>

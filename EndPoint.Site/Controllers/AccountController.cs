@@ -9,7 +9,7 @@ using System.Configuration;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Authorization;
 
-
+// کنترلر مدیریت حساب کاربری
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
     public class AccountController : Controller
@@ -25,6 +25,9 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             _emailSender = new EmailSender(configuration);
         }
 
+        // صفحه اصلی حساب کاربری
+        [Authorize]
+        [HttpGet]
         public IActionResult Index()
         {
            var user= _userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -36,7 +39,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 Id= user.Id,
                 PhoneNumber=user.PhoneNumber,
                 PhoneNumberConfirmed=user.PhoneNumberConfirmed,
-                ToFactorEnabled=user.TwoFactorEnabled,
+                TwoFactorEnabled=user.TwoFactorEnabled,
                 UserName=user.UserName
                 
             };
@@ -44,14 +47,18 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             return View(myAccount);
         }
+        // فعال یا غیرفعال کردن Two-Factor Authentication برای یک کاربر
         [Authorize]
         [HttpGet]
-        public IActionResult ToFactorEnabled()
+        public IActionResult TwoFactorEnabled()
         {
             var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
             var result = _userManager.SetTwoFactorEnabledAsync(user, !user.TwoFactorEnabled).Result;
             return RedirectToAction(nameof(Index));
         }
+
+
+        // صفحه ثبت‌ نام
 
         [HttpGet]
         public IActionResult Register()
@@ -60,7 +67,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
         }
 
-        //ثبت نام کاربر
+        // پردازش ثبت‌ نام
         [HttpPost]
         public IActionResult Register(RegisterDto register)
         {
@@ -106,7 +113,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             return View(register);
 
         }
-        //
+
+        // تأیید ایمیل برای حساب کاربری
         [HttpGet]
         public IActionResult ConfirmEmail(string UserId, string Token)
         {
@@ -136,13 +144,14 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
         }
 
-
+        // نمایش پیغام دریافت ایمیل
         [HttpGet]
         public IActionResult DisplayEmail()
         {
             return View();
         }
 
+        // صفحه ورود
         [HttpGet]
         public IActionResult Login(string returnUrl = "/")
         {
@@ -152,6 +161,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             });
 
         }
+
+        // پردازش ورود
         [HttpPost]
         public IActionResult Login(UserLoginDto userLogin)
         {
@@ -170,10 +181,10 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 return Redirect(userLogin.ReturnUrl);
             }
 
-            //if (result.RequiresTwoFactor == true)
-            //{
-            //    return Redirect(userLogin.ReturnUrl);
-            //}
+            if (result.RequiresTwoFactor == true)
+            {
+                return RedirectToAction("TwoFactorLogin", new { userLogin.UserName, userLogin.IsPersistent });
+            }
 
             //if (result.IsLockedOut)
             //{
@@ -185,19 +196,88 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             return View();
 
         }
+        // صفحه ورود دو مرحله‌ای
+        [HttpGet]
+        public IActionResult TwoFactorLogin(string UserName,bool IsPersistent)
+        {
+            var user=_userManager.FindByNameAsync(UserName).Result;
+            if (user==null)
+            {
+                return BadRequest();
+            }
+            var providers=_userManager.GetValidTwoFactorProvidersAsync(user).Result;
+
+            TwoFactorLoginDto model=new TwoFactorLoginDto();
+
+            if (providers.Contains("Phone"))
+            {
+                string smsCode = _userManager.GenerateTwoFactorTokenAsync(user, "Phone").Result;
+                SmsService smsService = new SmsService();
+                smsService.Send(user.PhoneNumber,smsCode);
+                model.Provider = "phone";
+                model.IsPersistent = IsPersistent;
+            }
+            else  if (providers.Contains("Email"))
+            {
+                string emailCode = _userManager.GenerateTwoFactorTokenAsync(user, "Email").Result;
+                
+                _emailSender.SendEmail(user.Email,$"Two Factore Code:{emailCode}", "Two Factor Login");
+                model.Provider = "Email";
+                model.IsPersistent = IsPersistent;
+
+            }
+            return View(model);
+
+
+        }
+        // پردازش ورود دو مرحله‌ای
+        [HttpPost]
+        public IActionResult TwoFactorLogin(TwoFactorLoginDto twoFactor)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(twoFactor);
+
+            }
+            var user = _signInManager.GetTwoFactorAuthenticationUserAsync().Result;
+            if(user==null)
+            {
+                return BadRequest();
+            }
+            var result = _signInManager.TwoFactorSignInAsync(twoFactor.Provider,twoFactor.Code,twoFactor.IsPersistent,false).Result;
+            if (result.Succeeded)
+            {
+                return RedirectToAction("index");
+            }
+            else if(result.IsLockedOut)
+            {
+                ModelState.AddModelError("", "حساب کاربری شما قفل شده است");
+                return View();
+            }
+            else
+            {
+                //
+            }
+
+            return View(twoFactor);
+        }
+
+        // خروج از حساب کاربری
+
         [HttpGet]
         public IActionResult LogOut()
         {
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
-
+        // صفحه فراموشی رمز عبور
         [HttpGet]
         public IActionResult ForgotPassword()
         {
 
             return View();
         }
+        // پردازش صفحه فراموشی رمز عبور
         [HttpPost]
         public IActionResult ForgotPassword(ForgotPasswordConfirmationDto forgot)
         {
@@ -227,7 +307,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             return View();
         }
-
+        // صفحه بازنشانی رمز عبور
         [HttpGet]
         public IActionResult ResetPassword(string UserId,string Token)
         {
@@ -238,7 +318,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             });
         }
-
+        // پردازش صفحه بازنشانی رمز عبور
         [HttpPost]
         public IActionResult ResetPassword(ResetPasswordDto reset)
         {
@@ -274,19 +354,23 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
                 return View();
         }
+
+        //صفحه  تایید تغییر پسورد
         [HttpGet]
         public IActionResult ResetPasswordConfirmation()
         {
             return View();
         }
 
+        // صفحه تنظیم شماره تلفن
         [HttpGet]
         [Authorize]
         public IActionResult SetPhoneNumber()
         {
             return View();
-        } 
+        }
 
+        // پردازش صفحه تنظیم شماره تلفن
         [HttpPost]
         [Authorize]
         public IActionResult SetPhoneNumber(SetPhoneNumberDto phoneNumberDto)
@@ -302,6 +386,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             return RedirectToAction(nameof(VerifyPhoneNumber));
         }
 
+        // صفحه تایید شماره تلفن
         [HttpGet]
         public IActionResult VerifyPhoneNumber()
         {
@@ -310,6 +395,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 PhoneNumber =  TempData["PhoneNumber"].ToString()
             });
         }
+        // پردازش صفحه تایید شماره تلفن
         [HttpPost]
         [Authorize]
         public IActionResult VerifyPhoneNumber(VerifyPhoneNumber verify)
@@ -331,6 +417,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
           
         }
+        // صفحه موفقیت تایید شماره تلفن
+        [HttpGet]
         public IActionResult VerifySuccess()
         {
             return View();

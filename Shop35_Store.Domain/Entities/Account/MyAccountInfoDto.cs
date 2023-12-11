@@ -15,7 +15,7 @@ namespace Shop35_Store.Domain.Entities.Account
         public string PhoneNumber { get; set; }
         public bool EmailConfirmed { get; set; }
         public bool PhoneNumberConfirmed { get; set;}
-        public bool ToFactorEnabled{ get; set; }
+        public bool TwoFactorEnabled{ get; set; }
 
 
 
