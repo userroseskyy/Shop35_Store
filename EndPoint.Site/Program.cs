@@ -19,6 +19,42 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<DataBaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrors>();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    //User Setting
+    options.User.RequireUniqueEmail = true;
+
+    //Password
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
+
+    //LocOut Setting
+    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+
+    //signIn setting
+    options.SignIn.RequireConfirmedAccount = false;
+    options.SignIn.RequireConfirmedEmail = false;
+    options.SignIn.RequireConfirmedPhoneNumber = false;
+
+});
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    //cookie setting
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+    options.SlidingExpiration = true;
+
+});
+
+
 
 
 var app = builder.Build();

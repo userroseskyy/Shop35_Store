@@ -172,6 +172,11 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             }
 
             var user = _userManager.FindByNameAsync(userLogin.UserName).Result;
+            if (user==null)
+            {
+                ModelState.AddModelError(string.Empty, "کاربری با این نام ثبت نشده است");
+                return View();
+            }
 
             _signInManager.SignOutAsync();
 
