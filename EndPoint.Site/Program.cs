@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-
+using Shop35_Store.Application.Helpers;
 using Shop35_Store.Domain.Entities.Roles;
 
 using Shop35_Store.Domain.Entities.Users;
@@ -17,7 +17,7 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(ConnectionString));
 
 builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<DataBaseContext>().AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<DataBaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrors>();
 
 
 

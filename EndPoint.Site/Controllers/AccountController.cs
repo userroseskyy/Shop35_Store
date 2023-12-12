@@ -214,7 +214,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 string smsCode = _userManager.GenerateTwoFactorTokenAsync(user, "Phone").Result;
                 SmsService smsService = new SmsService();
                 smsService.Send(user.PhoneNumber,smsCode);
-                model.Provider = "phone";
+                model.Provider = "Phone";
                 model.IsPersistent = IsPersistent;
             }
             else  if (providers.Contains("Email"))
