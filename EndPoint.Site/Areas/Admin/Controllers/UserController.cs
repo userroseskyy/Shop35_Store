@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Shop35_Store.Domain.Entities.Roles;
 using Shop35_Store.Domain.Entities.Users;
+using Shop35_Store.Infrastructure.Service;
+using System.Configuration;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
@@ -11,12 +13,13 @@ namespace EndPoint.Site.Areas.Admin.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly   RoleManager<Role> _roleManager;
+        private readonly EmailSender _emailSender;
 
-        public UserController(UserManager<User> userManager, RoleManager<Role> roleManager)
+        public UserController(UserManager<User> userManager, RoleManager<Role> roleManager, IConfiguration configuration)
         {
             _userManager = userManager;
             _roleManager= roleManager;
-
+            _emailSender = new EmailSender(configuration);
         }
 
        
@@ -36,42 +39,45 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             }).ToList();
             return View(users);
         }
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Create(RegisterDto register)
-        {
-            if (ModelState.IsValid==false)
-            {
-                return View(register);
-            }
-           User newUser= new User()
-           {
-               FirstName = register.FirstName,
-               LastName = register.LastName,
-               Email = register.Email,
-               UserName = register.Email,
+        //[HttpGet]
+        //public IActionResult Create()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public IActionResult Create(RegisterDto register)
+        //{
+        //    if (ModelState.IsValid==false)
+        //    {
+        //        return View(register);
+        //    }
+        //   User newUser= new User()
+        //   {
+        //       FirstName = register.FirstName,
+        //       LastName = register.LastName,
+        //       Email = register.Email,
+        //       UserName = register.Email,
 
-           };
-           var result=_userManager.CreateAsync(newUser,register.Password).Result;
-           if (result.Succeeded)
-           {
-               return RedirectToAction("Index","User",new {area="Admin"});
-           }
+        //   };
+        //   var result=_userManager.CreateAsync(newUser,register.Password).Result;
+        //   if (result.Succeeded)
+        //   {    
+                
 
-           string message = "";
-           foreach (var item  in result.Errors.ToList())
-           {
-               message += item.Description + Environment.NewLine;
-           }
-            TempData["Message"]=message;
+        //        return RedirectToAction("DisplayEmail", "Account",new {area=""});
+
+        //    }
+
+        //   string message = "";
+        //   foreach (var item  in result.Errors.ToList())
+        //   {
+        //       message += item.Description + Environment.NewLine;
+        //   }
+        //    TempData["Message"]=message;
        
 
-            return View(register);
-        }
+        //    return View(register);
+        //}
 
         [HttpGet]
         public IActionResult Edit(string Id)
@@ -202,11 +208,22 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         {
             var user = _userManager.FindByIdAsync(Id).Result;
             var roles = _userManager.GetRolesAsync(user).Result;
-            ViewBag.UserInfo = $"Name : {user.FirstName} {user.LastName} Email: {user.Email}";
+            ViewBag.UserInfo = $"نام کاربر : {user.FirstName} {user.LastName} ایمیل کاربر: {user.Email}";
             return View(roles);
 
 
         }
+        
+
+            [HttpPost]
+            public IActionResult DeleteRole(string role)
+            {
+               //var user=
+
+                return Json(new { success = true });
+            }
+        
+
 
 
 

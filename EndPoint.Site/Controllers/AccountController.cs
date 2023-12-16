@@ -105,7 +105,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             foreach (var item in result.Errors)
             {
-                message += item.Description + Environment.UserName;
+                message += item.Description + Environment.NewLine;
+            
             }
 
             TempData["Message"] = message;

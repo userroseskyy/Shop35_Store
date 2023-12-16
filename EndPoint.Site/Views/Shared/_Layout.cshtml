@@ -71,9 +71,15 @@
                     <div class="account-box">
                         <div class="nav-account d-block pl">
                             <span class="icon-account">
-                                <img src="~/SiteTemplate/assets/images/man.png" class="avator">
-                            </span>
-                            <span class="title-account">حساب کاربری</span>
+                                                @if (User.Identity.IsAuthenticated){
+                                                    <img src="~/SiteTemplate/assets/images/reg.png" class="avator">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/SiteTemplate/assets/images/nreg.png" class="avator">
+                                                }
+                                            </span>
+                            <span class="title-account">حساب من</span>
                             <div class="dropdown-menu">
                                 <ul class="account-uls mb-0">
 

@@ -17,7 +17,8 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(ConnectionString));
 
 builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<DataBaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrors>();
+    .AddEntityFrameworkStores<DataBaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrors>()
+    .AddPasswordValidator<MyPasswordValidator>();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -29,8 +30,11 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
-    options.Password.RequiredLength = 8;
+    options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
+   
+
+
 
     //LocOut Setting
     options.Lockout.MaxFailedAccessAttempts = 3;
