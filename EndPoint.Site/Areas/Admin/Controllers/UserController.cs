@@ -203,11 +203,13 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
            return RedirectToAction("UserRoles","User",new{Id=user.Id, area="Admin"});
         }
+
         [HttpGet]
         public IActionResult UserRoles(string Id)
         {
             var user = _userManager.FindByIdAsync(Id).Result;
             var roles = _userManager.GetRolesAsync(user).Result;
+            TempData["UserId"] = Id;
             ViewBag.UserInfo = $"نام کاربر : {user.FirstName} {user.LastName} ایمیل کاربر: {user.Email}";
             return View(roles);
 
@@ -218,9 +220,11 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             [HttpPost]
             public IActionResult DeleteRole(string role)
             {
-               //var user=
+            var Id = TempData["UserId"]?.ToString();
+            var user =_userManager.FindByIdAsync(Id).Result;
+            var result =  _userManager.RemoveFromRoleAsync(user, role).Result;
 
-                return Json(new { success = true });
+            return Json(new { success = true });
             }
         
 
