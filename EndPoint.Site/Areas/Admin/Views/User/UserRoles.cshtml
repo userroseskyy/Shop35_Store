@@ -40,31 +40,54 @@
     </tbody>
 </table>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".delete-role").click(function () {
-            var role = $(this).data("role");
-            var row = $(this).closest("tr"); 
+@section Scripts
+{
 
-            if (confirm("آیا مطمئن هستید که می‌خواهید این نقش را حذف کنید؟")) {
-                $.ajax({
-                    type: "POST",
-                    url: "/Admin/User/DeleteRole",
-                    data: { role: role },
-                    success: function (data) {
-                        if (data.success) {
-                          
-                            row.remove();
-                        } else {
-                            alert("خطا در حذف نقش: " + data.error);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error(xhr.responseText);
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".delete-role").click(function () {
+                var role = $(this).data("role");
+                var row = $(this).closest("tr");
+
+
+
+
+                swal.fire({
+                    title: 'حذف نقش',
+                    text: "کاربر گرامی از حذف نقش مطمئن هستید؟",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#7cacbe',
+                    confirmButtonText: 'بله ، نقش حذف شود',
+                    cancelButtonText: 'خیر'
+                }).then((result) => {
+                    if (result.value) {
+                        // انجام عملیات حذف
+                        var postData = {
+                            'role': role,
+                        };
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/Admin/User/DeleteRole",
+                            data: postData,
+                            success: function (data) {
+                                if (data.success) {
+                                    row.remove();
+                                } else {
+                                    alert("خطا در حذف نقش: " + data.error);
+                                }
+                            },
+                            error: function (xhr, status, error) {
+                                console.error(xhr.responseText);
+                            }
+                        });
                     }
                 });
-            }
+            });
         });
-    });
-</script>
+    </script>
+}
