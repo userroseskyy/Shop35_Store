@@ -58,7 +58,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 });
 
-
+builder.Services.AddScoped<IUserClaimsPrincipalFactory<User>, AddMyClaims>();
+   
 
 
 var app = builder.Build();

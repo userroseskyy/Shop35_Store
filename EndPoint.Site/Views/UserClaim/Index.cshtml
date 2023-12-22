@@ -1,0 +1,46 @@
+﻿@model IEnumerable<System.Security.Claims.Claim>
+@{
+    ViewData["Title"] = "Index";
+    
+
+}
+
+<h1>Claims  کاربر</h1>
+
+<a asp-action="Create" >افزودن Claimبه کاربر </a>
+
+<table class="table table-hover table-bordered">
+    <tr>
+        <td>Subject</td>
+        <td>Issuer</td>
+        <td>Type</td>
+        <td>Value</td>
+        <td>Delete</td>
+
+
+        </td>
+    </tr>
+
+    @foreach(var item in Model){
+      <tr>
+     <td>@item.Subject.Name</td>
+        <td>@item.Issuer</td>
+        <td>@item.Type</td>
+        <td>@item.Value</td>
+        <td>
+                <a  asp-action="Delete" asp-route-ClaimType="@item.Type" class="btn btn-danger">حذف</a>
+        </td>
+    </tr>
+    }
+</table>
+
+<link rel="stylesheet" href="~/siteTemplate/assets/css/vendor/font-awesome.min.css">
+<link rel="stylesheet" href="~/siteTemplate/assets/css/vendor/materialdesignicons.css">
+<!-- plugin-------------------------------------->
+<link rel="stylesheet" href="~/siteTemplate/assets/css/vendor/bootstrap.css">
+<link rel="stylesheet" href="~/siteTemplate/assets/css/vendor/owl.carousel.min.css">
+<link rel="stylesheet" href="~/siteTemplate/assets/css/vendor/nice-select.css">
+<!-- main-style---------------------------------->
+<link rel="stylesheet" href="~/siteTemplate/assets/css/main.css">
+<link rel="stylesheet" href="~/siteTemplate/assets/css/responsive.css">
+

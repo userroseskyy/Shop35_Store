@@ -87,18 +87,15 @@
                                     @if(User.Identity.IsAuthenticated)
                                     {
                                         <li class="nav-item">
-                                            <span class="nav-link text-dark">@User.Identity.Name</span>
+                                            <span class="nav-link  ">@User.Identity.Name</span>
                                         </li>
-                                          @if (User.IsInRole("ادمین") || User.IsInRole("مدیریت"))
-                                             {
-                                              <li class="nav-item">
-                                                 <a asp-area="Admin" asp-controller="user" asp-action="Index">کنترل پنل</a>
-                                                </li>
-                                                }
+                                         <li class="nav-item">
+                                           <a class="nav-link " asp-area="" asp-controller="Account" asp-action="index">تنظیمات حساب کاربری</a>
+                                           </li>
                                         <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="LogOut">خروج</a>
+                                            <a class="nav-link " asp-area="" asp-controller="Account" asp-action="LogOut">خروج</a>
                                         </li><li class="nav-item">
-                                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="SetPhoneNumber">ثبت موبایل</a>
+                                                            <a class="nav-link " asp-area="" asp-controller="Account" asp-action="SetPhoneNumber">ثبت موبایل</a>
                                         </li>
                                         
                                     }

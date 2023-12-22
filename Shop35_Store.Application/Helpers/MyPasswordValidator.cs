@@ -13,7 +13,7 @@ namespace Shop35_Store.Application.Helpers
     {
         List<string> CommonPassword=new List<string>()
         {
-           "123456","zxcV@34567","password","qwerty","123456789","qwerty","12345",
+           "123456","zxcV@34567","password","qwerty","123456789","qwerty","12345","1234567890","Aa123456","password1","000000","aa12345678"
 
 
 

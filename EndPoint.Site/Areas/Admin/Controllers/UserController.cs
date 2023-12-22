@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Shop35_Store.Domain.Entities.Roles;
@@ -8,6 +9,7 @@ using System.Configuration;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
+    [Authorize]
     [Area("Admin")]
     public class UserController : Controller
     {
@@ -222,10 +224,12 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             {
             var Id = TempData["UserId"]?.ToString();
             var user =_userManager.FindByIdAsync(Id).Result;
+            
             var result =  _userManager.RemoveFromRoleAsync(user, role).Result;
 
             return Json(new { success = true });
             }
+
         
 
 

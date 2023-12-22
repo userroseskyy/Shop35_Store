@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop35_Store.Domain.Entities.Roles;
 using Shop35_Store.Domain.Entities.Users;
@@ -6,6 +7,7 @@ using System.Data;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
+    [Authorize("")]
     [Area("Admin")]
     public class RoleController : Controller
     {

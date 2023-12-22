@@ -26,7 +26,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         }
 
         // صفحه اصلی حساب کاربری
-        [Authorize]
+       
         [HttpGet]
         public IActionResult Index()
         {
@@ -84,9 +84,12 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             };
             var result = _userManager.CreateAsync(newUser, register.Password).Result;
-
-
             if (result.Succeeded)
+            {
+
+            var addToRoleResult = _userManager.AddToRoleAsync(newUser, "Customer").Result;
+
+            if (addToRoleResult.Succeeded)
             {
                 var token = _userManager.GenerateEmailConfirmationTokenAsync(newUser).Result;
                 string callbakUrl = Url.Action("ConfirmEmail", "Account", new
@@ -99,7 +102,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
                 return RedirectToAction("DisplayEmail");
             }
-
+             }
 
             string message = "";
 
