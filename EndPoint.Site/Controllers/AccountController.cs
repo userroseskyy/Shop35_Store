@@ -84,12 +84,11 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             };
             var result = _userManager.CreateAsync(newUser, register.Password).Result;
+           
+
+         
+
             if (result.Succeeded)
-            {
-
-            var addToRoleResult = _userManager.AddToRoleAsync(newUser, "Customer").Result;
-
-            if (addToRoleResult.Succeeded)
             {
                 var token = _userManager.GenerateEmailConfirmationTokenAsync(newUser).Result;
                 string callbakUrl = Url.Action("ConfirmEmail", "Account", new
@@ -102,7 +101,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
                 return RedirectToAction("DisplayEmail");
             }
-             }
+             
 
             string message = "";
 
@@ -407,7 +406,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         // پردازش صفحه تایید شماره تلفن
         [HttpPost]
         [Authorize]
-        public IActionResult VerifyPhoneNumber(VerifyPhoneNumber verify)
+        public async Task<IActionResult> VerifyPhoneNumber(VerifyPhoneNumber verify)
         {
 
             var user=_userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -419,8 +418,9 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             }
             else
             {
+                
                 user.PhoneNumberConfirmed = true;
-                _userManager.UpdateAsync(user);
+               await _userManager.UpdateAsync(user);
             }
             return RedirectToAction("VerifySuccess");
 

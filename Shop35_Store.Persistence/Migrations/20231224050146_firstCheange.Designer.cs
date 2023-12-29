@@ -12,8 +12,8 @@ using Shop35_Store.Persistence.Context;
 namespace Shop35_Store.Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231222033512_FirstChange")]
-    partial class FirstChange
+    [Migration("20231224050146_firstCheange")]
+    partial class firstCheange
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

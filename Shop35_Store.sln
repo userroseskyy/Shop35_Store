@@ -15,19 +15,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{F0AE3D21-7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7A75E859-A8EE-4C60-ADD4-4AECBA1F000F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop35_Store.Common", "Shop35_Store.Common\Shop35_Store.Common.csproj", "{6D5C69B5-4562-4B5D-9DF6-1944D1E7B8D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop35_Store.Common", "Shop35_Store.Common\Shop35_Store.Common.csproj", "{6D5C69B5-4562-4B5D-9DF6-1944D1E7B8D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop35_Store.Application", "Shop35_Store.Application\Shop35_Store.Application.csproj", "{5AF18850-8B76-4000-8819-2DAB92FD033D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop35_Store.Application", "Shop35_Store.Application\Shop35_Store.Application.csproj", "{5AF18850-8B76-4000-8819-2DAB92FD033D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop35_Store.Domain", "Shop35_Store.Domain\Shop35_Store.Domain.csproj", "{C4D45E81-B518-4B37-A8A8-5FAE29AA9436}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop35_Store.Domain", "Shop35_Store.Domain\Shop35_Store.Domain.csproj", "{C4D45E81-B518-4B37-A8A8-5FAE29AA9436}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{CC0E9FC6-6C52-41F1-8439-50060B5D936F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop35_Store.Infrastructure", "Shop35_Store.Infrastructure\Shop35_Store.Infrastructure.csproj", "{3456CAB5-3E23-45E1-A231-7E64F1FF6C24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop35_Store.Infrastructure", "Shop35_Store.Infrastructure\Shop35_Store.Infrastructure.csproj", "{3456CAB5-3E23-45E1-A231-7E64F1FF6C24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop35_Store.Persistence", "Shop35_Store.Persistence\Shop35_Store.Persistence.csproj", "{80C198F8-093E-40F5-AAB2-90E37B74ABDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop35_Store.Persistence", "Shop35_Store.Persistence\Shop35_Store.Persistence.csproj", "{80C198F8-093E-40F5-AAB2-90E37B74ABDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EndPoint.Site", "EndPoint.Site\EndPoint.Site.csproj", "{D067F1D0-C25F-47F3-A467-2898A42402A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EndPoint.Site", "EndPoint.Site\EndPoint.Site.csproj", "{D067F1D0-C25F-47F3-A467-2898A42402A0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
