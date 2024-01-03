@@ -19,6 +19,7 @@
 
 <body>
 <!-- header-------------------------------->
+
 <header class="header-main">
 <div class="container-main">
 <div class="d-block">
@@ -68,23 +69,28 @@
         <div class="header-left">
             <div class="header-account text-left">
                 <div class="d-block">
-                    <div class="account-box">
-                        <div class="nav-account d-block pl">
-                            <span class="icon-account">
-                                                @if (User.Identity.IsAuthenticated){
-                                                    <img src="~/SiteTemplate/assets/images/reg.png" class="avator">
-                                                }
-                                                else
-                                                {
-                                                    <img src="~/SiteTemplate/assets/images/nreg.png" class="avator">
-                                                }
-                                            </span>
-                            <span class="title-account">حساب من</span>
-                            <div class="dropdown-menu">
-                                <ul class="account-uls mb-0">
+                    @* <div class="account-box">
+                        <div class="nav-account d-block pl"> *@
+                                            @if (User.Identity.IsAuthenticated){
+                                               
+                                                    <span class="nav-link  ">@User.Identity.Name 
+                                                         <a class="nav-link " asp-area="" asp-controller="Account" asp-action="index">تنظیمات حساب کاربری</a>
+                                                    <a class="nav-link " asp-area="" asp-controller="Account" asp-action="LogOut">خروج</a>
+                                                    </span>
+                                                
+                                            }
+                                            else
+                                            {
+                                              
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">ورود/ثبت نام</a>
+
+                                       
+                                            }
+                                            @* <div class="dropdown-menu">
+                                <ul class="account-uls mb-0"> *@
 
                                   
-                                    @if(User.Identity.IsAuthenticated)
+                                   @*  @if(User.Identity.IsAuthenticated)
                                     {
                                         <li class="nav-item">
                                             <span class="nav-link  ">@User.Identity.Name</span>
@@ -108,14 +114,14 @@
                                         <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">ورود</a>
                                        </li> 
 
-                                    }
+                                    } *@
                                       
 
                                    
                                     
-                                </ul>
-                            </div>
-                        </div>
+                               @*  </ul> *@
+                            @* </div>
+                        </div> *@
                     </div>
                 </div>
             </div>
@@ -1156,6 +1162,7 @@
     </div>
 </section>
 </footer>
+
 <!-- footer------------------------------------------->
 <!-- scroll_Progress------------------------->
 <div class="progress-wrap">
@@ -1178,3 +1185,4 @@
 <!-- main js---------------------------------------------------->
 <script src="~/SiteTemplate/assets/js/main.js"></script>
 </html>
+

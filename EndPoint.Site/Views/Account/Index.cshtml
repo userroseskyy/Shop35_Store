@@ -2,14 +2,148 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = null;
 }
 
-<h1>حساب من</h1>
 
-<div>
-    <h4>اطلاعات حساب کاربری</h4>
-    <hr />
-    <dl class="row">
+
+<div class="container mt-5">
+    <table class="table table-bordered table-striped  table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-center align-middle" colspan="2">اطلاعات کاربر</th>
+                
+            </tr>
+        </thead>
+    <tbody>
+
+        <tr>
+            <td>
+               
+                    @Html.DisplayNameFor(model => model.FullName)
+               
+            </td>
+            <td>
+                
+                    @Html.DisplayFor(model => model.FullName)
+              
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                @Html.DisplayNameFor(model => model.UserName)
+
+            </td>
+            <td>
+
+                @Html.DisplayFor(model => model.UserName)
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                @Html.DisplayNameFor(model => model.Email)
+
+            </td>
+            <td>
+
+                @Html.DisplayFor(model => model.Email)
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+
+            </td>
+            <td>
+
+                @Html.DisplayFor(model => model.PhoneNumber)
+                    @if ( Model.PhoneNumber==null)
+                   {
+                        <Span class="text-danger">نیاز به ثبت شماره موبایل</Span>
+                   }   
+                </td>
+             </tr>
+            <tr>
+                <td>
+
+                    @if (!Model.PhoneNumberConfirmed)
+                    {
+                        <span >ثبت شماره موبایل</span>
+                       
+                    }
+                    else
+                    {
+                        <span >@Html.DisplayNameFor(model => model.PhoneNumberConfirmed) </span>
+                    }
+                </td>
+
+                <td>
+
+                    @if (!Model.PhoneNumberConfirmed )
+                    {
+                        <a  class="text-primary" asp-action="SetPhoneNumber">تایید شماره تلفن</a>
+                    }
+                    @Html.DisplayFor(model => model.PhoneNumberConfirmed)
+
+                </td>
+            </tr>
+        <tr>
+            <td>
+
+                @Html.DisplayNameFor(model => model.EmailConfirmed)
+
+            </td>
+            <td>
+
+                @Html.DisplayFor(model => model.EmailConfirmed)
+
+            </td>
+        </tr>
+       
+        
+        <tr>
+    <td>
+
+           <span > @Html.DisplayFor(model => model.TwoFactorEnabled) ورود</span>
+           
+    </td>
+    <td>
+            @Html.DisplayFor(model => model.TwoFactorEnabled)
+            @if (Model.TwoFactorEnabled)
+            {
+            <b style="color=#229607">نیاز به ورود دومرحله ای</b>
+            }
+            else
+            {
+            <b style="color=#ff0000"> ورود تک مرحله ای</b>
+
+            }
+        <a class="btn btn-link text-primary" asp-action="TwoFactorEnabled">برای تغییر کلیک کنید</a>
+
+    </td>
+        </tr>
+  
+            <tr >
+        <td  class="text-center align-middle" colspan="2">
+        @* 
+            @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) | *@
+                    <a class="btn btn-link text-primary" colspan="2" asp-area="" asp-controller="" asp-action="Index">برگشت به صفحه اصلی</a>
+        </td>
+            </tr>
+    
+        </tbody>
+    
+</table>
+</div>
+
+   
+    
+   @*  <dl class="row ">
         
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.FullName)
@@ -67,8 +201,19 @@
 
         </dd>
     </dl>
-</div>
-<div>
+  
+
+
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
-</div>
+        <a asp-action="Index">برگشت به صفحه اصلی</a> *@
+    
+
+<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/font-awesome.min.css">
+<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/materialdesignicons.css">
+<!-- plugin-------------------------------------->
+<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/bootstrap.css">
+<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/owl.carousel.min.css">
+<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/nice-select.css">
+<!-- main-style---------------------------------->
+<link rel="stylesheet" href="~/SiteTemplate/assets/css/main.css">
+<link rel="stylesheet" href="~/SiteTemplate/assets/css/responsive.css">

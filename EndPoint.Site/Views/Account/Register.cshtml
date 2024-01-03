@@ -19,7 +19,7 @@
    
 
         <div class="row">
-        <div class="col-md-4 mx-auto ">
+        <div class="col-md-4 mx-auto p-5 my-5 border  text-white bg-dark ">
         
         @if(TempData["Message"] !=null)
         {
@@ -59,15 +59,15 @@
                 <input asp-for="ConFirmPassword" class="form-control"/>
                 <span asp-validation-for="ConFirmPassword" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+            <div class="form-group container">
+                    <input type="submit" value="ثبت نام" class="btn btn-primary btn btn-primary row col-md-4" />
             </div>
         </form>
     
 
 
        
-        <a asp-area="" asp-controller="Home" asp-action="Index">برگشت به صفحه قبل</a>
+        <a asp-area="" asp-controller="Home" asp-action="Index">برگشت به صفحه اصلی</a>
     
     </div>
 

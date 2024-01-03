@@ -221,7 +221,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             {
                 string smsCode = _userManager.GenerateTwoFactorTokenAsync(user, "Phone").Result;
                 SmsService smsService = new SmsService();
-                smsService.Send(user.PhoneNumber,smsCode);
+                smsService.SendSmsAsync(user.PhoneNumber,smsCode);
                 model.Provider = "Phone";
                 model.IsPersistent = IsPersistent;
             }
@@ -388,7 +388,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
            string code = _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumberDto.PhoneNumber).Result;
 
            SmsService smsService = new SmsService();
-           smsService.Send(phoneNumberDto.PhoneNumber,code);
+           smsService.SendSmsAsync(phoneNumberDto.PhoneNumber,code);
             TempData["PhoneNumber"]= phoneNumberDto.PhoneNumber;
 
             return RedirectToAction(nameof(VerifyPhoneNumber));

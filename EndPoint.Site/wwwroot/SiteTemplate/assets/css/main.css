@@ -7716,4 +7716,8 @@ body.light .progress-wrap::after {
 body.light .progress-wrap svg.progress-circle path {
 	stroke: var(--black-blue);
 }
+.back-login{
+    background-color:#00bfd6;
+}
+
 
