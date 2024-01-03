@@ -1,7 +1,10 @@
 ﻿
-.colored-border {
+.color-border {
     width: 10%;
     height: 10vp;
     border: 6px solid yellow; 
+}
+.back {
+    background-color: #ff4000;
 }
 

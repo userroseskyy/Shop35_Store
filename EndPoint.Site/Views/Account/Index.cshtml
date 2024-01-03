@@ -4,9 +4,26 @@
     ViewData["Title"] = "Index";
     Layout = null;
 }
+<html>
+<head>
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/materialdesignicons.css">
+    <!-- plugin-------------------------------------->
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/bootstrap.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/nice-select.css">
+    <!-- main-style---------------------------------->
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/main.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/responsive.css">
+    <link href="~/Sitetemplate/assets/css/stylesheet.css" rel="stylesheet" />
 
 
 
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+</head>
+
+<body class="back">
 <div class="container mt-5">
     <table class="table table-bordered table-striped  table-hover">
         <thead class="thead-dark">
@@ -109,7 +126,7 @@
         <tr>
     <td>
 
-           <span > @Html.DisplayFor(model => model.TwoFactorEnabled) ورود</span>
+           <span > @Html.DisplayFor(model => model.TwoFactorEnabled) ورود دو مرحله ای</span>
            
     </td>
     <td>
@@ -127,12 +144,12 @@
 
     </td>
         </tr>
-  
-            <tr >
-        <td  class="text-center align-middle" colspan="2">
+
+            <tr class="back">
+                <td class="text-center align-middle" colspan="2">
         @* 
             @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) | *@
-                    <a class="btn btn-link text-primary" colspan="2" asp-area="" asp-controller="" asp-action="Index">برگشت به صفحه اصلی</a>
+                    <a class="btn btn-link " colspan="2" asp-area="" asp-controller="" asp-action="Index">برگشت به صفحه اصلی</a>
         </td>
             </tr>
     
@@ -141,7 +158,8 @@
 </table>
 </div>
 
-   
+   </body>
+   </html>
     
    @*  <dl class="row ">
         
@@ -208,12 +226,3 @@
         <a asp-action="Index">برگشت به صفحه اصلی</a> *@
     
 
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/font-awesome.min.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/materialdesignicons.css">
-<!-- plugin-------------------------------------->
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/bootstrap.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/owl.carousel.min.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/nice-select.css">
-<!-- main-style---------------------------------->
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/main.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/responsive.css">
