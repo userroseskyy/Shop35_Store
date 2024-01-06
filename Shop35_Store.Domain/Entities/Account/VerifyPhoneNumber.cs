@@ -14,6 +14,7 @@ namespace Shop35_Store.Domain.Entities.Account
         [Required]
         [MinLength(6)] 
         [MaxLength(6)]
+        [Display(Name ="کد تائید")]
         public string Code { get; set; }
     }
 }

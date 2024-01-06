@@ -10,11 +10,11 @@ namespace Shop35_Store.Domain.Entities.Account
    public class ResetPasswordDto
     {
         [Required]
-        [Display(Name ="پسورد")]
+        [Display(Name ="پسورد جدید")]
         [DataType(DataType.Password)]
 
-        public string Password { get; set; } 
-
+        public string Password { get; set; }
+        [Display(Name = "تکرار پسورد جدید")]
         [DataType(DataType.Password)]
         [Compare(nameof(Password),ErrorMessage = "رمز و تکرار آن برابر نیست")]
         public string ConfirmPassword { get; set; }
