@@ -131,6 +131,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult UserInRole(string Name)
         {
+
             var userInRole = _userManager.GetUsersInRoleAsync(Name).Result;
 
             return View(userInRole.Select(p =>
@@ -140,6 +141,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 LastName = p.LastName,
                 UserName = p.UserName,
                 PhonNumber = p.PhoneNumber,
+            
                 Id = p.Id
 
             }));

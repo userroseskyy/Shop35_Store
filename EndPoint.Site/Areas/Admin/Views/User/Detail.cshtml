@@ -5,46 +5,36 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1 class="text-center">جزئیات</h1>
+<div class="h-100 d-flex align-items-center justify-content-center  ">
+    <div class=" container p-2  border border-primary  text-center col-8">
+
+        <table class="table   table-hover">
+            <thead >
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                    <th> @Html.DisplayNameFor(model => model.lastName)</th>
+                    <th> @Html.DisplayNameFor(model => model.Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                    <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.FirstName)</td>
+                    <td> @Html.DisplayFor(model => model.lastName)</td>
+                    <td> @Html.DisplayFor(model => model.Email)</td>
+                    <td> @Html.DisplayFor(model => model.UserName)</td>
+                    <td> @Html.DisplayFor(model => model.PhoneNumber)</td>
+
+                </tr>
+            </tbody>
+        </table>
+
+
 
 <div class="mx-auto text-center">
-    <h4>جزئیات اطلاعات کاربران</h4>
-    <hr />
-
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.lastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.lastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-    </dl>
-</div>
-<div class="mx-auto text-center">
-    @Html.ActionLink(",ویرایش", "Edit", new {  id = Model.Id }) |
-    <a asp-action="Index">Back to List</a>
+            @Html.ActionLink("ویرایش", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" }) |
+    <a class="btn btn-outline-primary" asp-action="Index">برگشت به لیست</a>
+        </div>
+    </div>
 </div>

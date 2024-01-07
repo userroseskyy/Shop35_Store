@@ -196,12 +196,13 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 return RedirectToAction("TwoFactorLogin", new { userLogin.UserName, userLogin.IsPersistent });
             }
 
-            //if (result.IsLockedOut)
-            //{
+            if (result.IsLockedOut)
+            {
+                 _userManager.AccessFailedAsync(user);
+                ModelState.AddModelError(string.Empty, "درخواست شما با خطا مواجه شد");
+            }
 
-            //}
-
-            ModelState.AddModelError(string.Empty, "درخواست شما با خطا مواجه شد");
+            
 
             return View();
 
