@@ -10,7 +10,7 @@ namespace Shop35_Store.Domain.Entities.Roles
     public class DeleteRoleDto
     {
         public string Id { get; set; }
-        [Display(Name = "نام")]
+        [Display(Name = "نام نقش")]
         public string Name { get; set; }
         [Display(Name = "توضیحات")]
         public string Description{ get; set; }

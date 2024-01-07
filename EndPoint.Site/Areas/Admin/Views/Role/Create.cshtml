@@ -5,12 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>افزودن</h1>
 
-<h4>افزودن نقش ها</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+
+
+<div class="h-100 d-flex align-items-center justify-content-center  ">
+    <div class=" container p-2  border border-primary  text-center col-8">
+        <h1> افزودن نقش</h1>
         @if (ViewBag.Errors !=null)
         {
             <div class="alert alert-danger">
@@ -39,10 +39,11 @@
                 <input type="submit" value="ثبت " class="btn btn-primary"/>
             </div>
         </form>
-    </div>
-</div>
+   
+
 
 <div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <a class="btn btn-outline-primary" asp-action="Index">برگشت به لیست</a>
+    </div>
 
+</<div></div>

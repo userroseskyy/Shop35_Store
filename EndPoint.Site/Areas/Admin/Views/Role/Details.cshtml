@@ -5,29 +5,31 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>جزئیات</h1>
 
+
+<div class="h-100 d-flex align-items-center justify-content-center  ">
+    <div class=" container p-2  border border-primary  text-center col-8">
+        <table class="table mdi-file-table-outline table-hover">
+            <thead>
+                <tr>
+                    <th> @Html.DisplayNameFor(model => model.Name)</th>
+                    <th> @Html.DisplayNameFor(model => model.Description)</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Html.DisplayFor(model => model.Name)</td>
+                    <td> @Html.DisplayFor(model => model.Description)</td>
+
+                </tr>
+
+
+            </tbody>
+        </table>
+   
 <div>
-    <h4>جزئیات نقشها</h4>
-    <hr />
-    <dl class="row">
-        
-        
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-    </dl>
+            @Html.ActionLink("ویرایش", "Edit", new { id = Model.Id }, new { @class = "btn btn-outline-primary" }) |
+            <a class="btn btn-outline-primary" asp-action="Index">برگشت به لیست</a>
 </div>
-<div>
-    @Html.ActionLink("ویرایش", "Edit", new {  id = Model.Id }) |
-    <a asp-action="Index">Back to List</a>
 </div>

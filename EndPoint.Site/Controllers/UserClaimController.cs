@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop35_Store.Domain.Entities.Users;
@@ -31,9 +32,18 @@ namespace EndPoint.Site.Controllers
           [HttpPost]
         public IActionResult Create(string ClaimType,string ClaimValue)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Error = "لطفاً تمام فیلدها را پر کنید.";
+                return View("create");
+            }
             var user = _userManager.GetUserAsync(User).Result;
+
             Claim newClaim=new Claim(ClaimType,ClaimValue,ClaimValueTypes.String);
-            
+            if (newClaim==null)
+            {
+                return View();
+            }
             
             var result=_userManager.AddClaimAsync(user,newClaim).Result;
             if (result.Succeeded)

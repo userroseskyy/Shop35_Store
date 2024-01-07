@@ -81,6 +81,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 LastName = register.LastName,
                 Email = register.Email,
                 UserName = register.Email,
+                
+
 
             };
             var result = _userManager.CreateAsync(newUser, register.Password).Result;

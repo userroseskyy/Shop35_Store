@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shop35_Store.Application.Interfaces.Context;
@@ -21,5 +22,18 @@ namespace Shop35_Store.Persistence.Context
                 
         }
 
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<IdentityUserLogin<string>>().HasKey(p => new { p.LoginProvider, p.ProviderKey });
+            modelBuilder.Entity<IdentityUserRole<string>>().HasKey(p => new { p.UserId,p.RoleId });
+          
+            modelBuilder.Entity<IdentityUserToken<string>>().HasKey(p => new {p.UserId,p.LoginProvider,p.Name});
+           
+
+
+
+            modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
+        }
     }
 }

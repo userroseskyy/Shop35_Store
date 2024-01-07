@@ -1,9 +1,23 @@
 ﻿
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "افزودن claim";
     Layout = null;
 }
 
+
+
+
+
+<div class="h-100 d-flex align-items-center justify-content-center  ">
+    <div class=" container p-2  border border-primary  text-center col-4 ">
+
+
+@if (ViewBag.Error != null)
+{
+    <div class="alert alert-danger">
+        @ViewBag.Error
+    </div>
+}
 <h1>Create</h1>
 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 <form asp-action="Create" method="post">
@@ -19,7 +33,7 @@
     <button type="submit">افزودن</button>
 
 </form>
-
+</<div></div>
 
 <link rel="stylesheet" href="~/siteTemplate/assets/css/vendor/font-awesome.min.css">
 <link rel="stylesheet" href="~/siteTemplate/assets/css/vendor/materialdesignicons.css">

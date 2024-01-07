@@ -69,12 +69,12 @@
         <div class="header-left">
             <div class="header-account text-left">
                 <div class="d-block">
-                    @* <div class="account-box">
-                        <div class="nav-account d-block pl"> *@
+                  
                                             @if (User.Identity.IsAuthenticated){
                                                
                                                     <span class="nav-link  ">@User.Identity.Name 
                                                          <a class="nav-link " asp-area="" asp-controller="Account" asp-action="index">تنظیمات حساب کاربری</a>
+                                                      <a class="nav-link " asp-area="admin" asp-controller="user" asp-action="index">کنترل پنل</a>
                                                     <a class="nav-link " asp-area="" asp-controller="Account" asp-action="LogOut">خروج</a>
                                                     </span>
                                                 
@@ -86,42 +86,7 @@
 
                                        
                                             }
-                                            @* <div class="dropdown-menu">
-                                <ul class="account-uls mb-0"> *@
-
-                                  
-                                   @*  @if(User.Identity.IsAuthenticated)
-                                    {
-                                        <li class="nav-item">
-                                            <span class="nav-link  ">@User.Identity.Name</span>
-                                        </li>
-                                         <li class="nav-item">
-                                           <a class="nav-link " asp-area="" asp-controller="Account" asp-action="index">تنظیمات حساب کاربری</a>
-                                           </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link " asp-area="" asp-controller="Account" asp-action="LogOut">خروج</a>
-                                        </li><li class="nav-item">
-                                                            <a class="nav-link " asp-area="" asp-controller="Account" asp-action="SetPhoneNumber">ثبت موبایل</a>
-                                        </li>
-                                        
-                                    }
-                                    else
-                                    {
-                                        <li class="nav-item">
-                                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Register">ثبت نام</a>
-                                        </li> 
-                                        <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Login">ورود</a>
-                                       </li> 
-
-                                    } *@
-                                      
-
-                                   
-                                    
-                               @*  </ul> *@
-                            @* </div>
-                        </div> *@
+                                           
                     </div>
                 </div>
             </div>

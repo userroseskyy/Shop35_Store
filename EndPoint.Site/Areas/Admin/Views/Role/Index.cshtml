@@ -5,12 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>نقش ها</h1>
-
+<div class="h-100 d-flex align-items-center justify-content-center  ">
+    <div class=" container p-2  border border-primary  text-center col-8">
 <p>
     <a asp-action="Create">افزودن نقش جدید</a>
 </p>
-<table class="table">
+        <table class="table table-hover table-bordered">
     <thead>
         <tr>
            
@@ -20,7 +20,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th></th>
+            <th>عملیات</th>
         </tr>
     </thead>
     <tbody>
@@ -35,12 +35,14 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                    @Html.ActionLink("ویرایش", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" }) |
-                    @Html.ActionLink("جزئیات", "Details", new { id=item.Id}, new { @class = "btn  btn-info" }) |
-                @Html.ActionLink("حذف", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
-                    @Html.ActionLink("لیست کاربر", "UserInRole", "Role", new { Name=item.Name, area = "Admin" }, new { @class = "btn btn-secondary" })
+                            @Html.ActionLink("ویرایش", "Edit", new { id = item.Id }, new { @class = "btn btn-outline-warning" }) |
+                            @Html.ActionLink("جزئیات", "Details", new { id = item.Id }, new { @class = "btn  btn-outline-info" }) |
+                            @Html.ActionLink("حذف", "Delete", new { id = item.Id }, new { @class = "btn btn-outline-danger" })|
+                            @Html.ActionLink("لیست کاربر", "UserInRole", "Role", new { Name = item.Name, area = "Admin" }, new { @class = "btn btn-outline-secondary" })
             </td>
         </tr>
 }
     </tbody>
 </table>
+</div>
+</div>

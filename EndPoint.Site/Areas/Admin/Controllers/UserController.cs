@@ -126,7 +126,9 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Delete(string Id)
         {
-         var user=_userManager.FindByIdAsync(Id).Result;
+        
+            
+            var user=_userManager.FindByIdAsync(Id).Result;
          UserDeleteDto userDelete = new UserDeleteDto()
          {
              Id=user.Id,
@@ -142,8 +144,11 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         {
             var user = _userManager.FindByIdAsync(userDelete.Id).Result;
 
-            var result=_userManager.DeleteAsync(user).Result;
-            if (result.Succeeded){
+            user.RemoveTime=DateTime.Now;
+            user.IsRemoved=true;
+           var result= _userManager.UpdateAsync(user).Result;
+            if (user.IsRemoved==true)
+            {
 
                 return RedirectToAction("Index", "User", new { area = "Admin" });
               }
