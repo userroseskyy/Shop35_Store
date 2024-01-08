@@ -6,8 +6,9 @@ using Shop35_Store.Domain.Entities.Users;
 using System.Security.Claims;
 
 namespace EndPoint.Site.Controllers
-{ 
-    [Authorize]
+{
+    [Authorize(Roles = "Customer")]
+    [Authorize(Roles = "Admin")]
     public class UserClaimController : Controller
     {
         private UserManager<User> _userManager;

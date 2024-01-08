@@ -9,7 +9,9 @@ using System.Configuration;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
-    [Authorize]
+
+    [Authorize(Roles = "Customer")]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class UserController : Controller
     {
@@ -41,45 +43,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             }).ToList();
             return View(users);
         }
-        //[HttpGet]
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public IActionResult Create(RegisterDto register)
-        //{
-        //    if (ModelState.IsValid==false)
-        //    {
-        //        return View(register);
-        //    }
-        //   User newUser= new User()
-        //   {
-        //       FirstName = register.FirstName,
-        //       LastName = register.LastName,
-        //       Email = register.Email,
-        //       UserName = register.Email,
-
-        //   };
-        //   var result=_userManager.CreateAsync(newUser,register.Password).Result;
-        //   if (result.Succeeded)
-        //   {    
-                
-
-        //        return RedirectToAction("DisplayEmail", "Account",new {area=""});
-
-        //    }
-
-        //   string message = "";
-        //   foreach (var item  in result.Errors.ToList())
-        //   {
-        //       message += item.Description + Environment.NewLine;
-        //   }
-        //    TempData["Message"]=message;
-       
-
-        //    return View(register);
-        //}
+        
 
         [HttpGet]
         public IActionResult Edit(string Id)

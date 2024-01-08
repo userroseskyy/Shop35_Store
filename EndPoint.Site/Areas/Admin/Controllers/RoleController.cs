@@ -7,7 +7,9 @@ using System.Data;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
-    [Authorize("")]
+ 
+    [Authorize(Roles="Customer")]
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class RoleController : Controller
     {
@@ -133,7 +135,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         {
 
             var userInRole = _userManager.GetUsersInRoleAsync(Name).Result;
-
+            var user = _userManager.GetUserAsync(User).Result;
             return View(userInRole.Select(p =>
             new UserListDto
             {
@@ -141,7 +143,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 LastName = p.LastName,
                 UserName = p.UserName,
                 PhonNumber = p.PhoneNumber,
-            
+            AccessFailedCount=user.AccessFailedCount,
+            EmailConfirmed=user.EmailConfirmed,
                 Id = p.Id
 
             }));

@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 // کنترلر مدیریت حساب کاربری
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Customer,Admin")]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -27,6 +28,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
         // صفحه اصلی حساب کاربری
        
+       
+
         [HttpGet]
         public IActionResult Index()
         {
@@ -48,7 +51,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             return View(myAccount);
         }
         // فعال یا غیرفعال کردن Two-Factor Authentication برای یک کاربر
-        [Authorize]
+        
         [HttpGet]
         public IActionResult TwoFactorEnabled()
         {
@@ -59,14 +62,14 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
 
         // صفحه ثبت‌ نام
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Register()
         {
             return View();
 
         }
-
+        [AllowAnonymous]
         // پردازش ثبت‌ نام
         [HttpPost]
         public IActionResult Register(RegisterDto register)
@@ -87,11 +90,11 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             };
             var result = _userManager.CreateAsync(newUser, register.Password).Result;
            
-
-         
-
             if (result.Succeeded)
             {
+                var addRoleResult = _userManager.AddToRoleAsync(newUser, "Customer").Result;
+
+                if (result.Succeeded) { 
                 var token = _userManager.GenerateEmailConfirmationTokenAsync(newUser).Result;
                 string callbakUrl = Url.Action("ConfirmEmail", "Account", new
                 { UserId = newUser.Id, token = token }, protocol: Request.Scheme);
@@ -101,7 +104,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
 
 
-                return RedirectToAction("DisplayEmail");
+                return RedirectToAction("DisplayEmail");}
             }
              
 
@@ -118,7 +121,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             return View(register);
 
         }
-
+        [AllowAnonymous]
         // تأیید ایمیل برای حساب کاربری
         [HttpGet]
         public IActionResult ConfirmEmail(string UserId, string Token)
@@ -148,14 +151,14 @@ namespace EndPoint.Site.Areas.Admin.Controllers
            return RedirectToAction("Login");
 
         }
-
+        [AllowAnonymous]
         // نمایش پیغام دریافت ایمیل
         [HttpGet]
         public IActionResult DisplayEmail()
         {
             return View();
         }
-
+        [AllowAnonymous]
         // صفحه ورود
         [HttpGet]
         public IActionResult Login(string returnUrl = "/")
@@ -166,7 +169,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             });
 
         }
-
+        [AllowAnonymous]
         // پردازش ورود
         [HttpPost]
         public IActionResult Login(UserLoginDto userLogin)
@@ -274,13 +277,14 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         }
 
         // خروج از حساب کاربری
-
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult LogOut()
         {
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        [AllowAnonymous]
         // صفحه فراموشی رمز عبور
         [HttpGet]
         public IActionResult ForgotPassword()
@@ -288,6 +292,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             return View();
         }
+
+        [AllowAnonymous]
         // پردازش صفحه فراموشی رمز عبور
         [HttpPost]
         public IActionResult ForgotPassword(ForgotPasswordConfirmationDto forgot)
@@ -318,6 +324,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             return View();
         }
+        [AllowAnonymous]
         // صفحه بازنشانی رمز عبور
         [HttpGet]
         public IActionResult ResetPassword(string UserId,string Token)
@@ -329,6 +336,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             });
         }
+        [AllowAnonymous]
         // پردازش صفحه بازنشانی رمز عبور
         [HttpPost]
         public IActionResult ResetPassword(ResetPasswordDto reset)
@@ -365,7 +373,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
                 return View();
         }
-
+        [AllowAnonymous]
         //صفحه  تایید تغییر پسورد
         [HttpGet]
         public IActionResult ResetPasswordConfirmation()
@@ -375,7 +383,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
         // صفحه تنظیم شماره تلفن
         [HttpGet]
-        [Authorize]
+        
         public IActionResult SetPhoneNumber()
         {
             return View();
@@ -383,7 +391,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
         // پردازش صفحه تنظیم شماره تلفن
         [HttpPost]
-        [Authorize]
+       
         public IActionResult SetPhoneNumber(SetPhoneNumberDto phoneNumberDto)
         {
             var user = _userManager.FindByNameAsync(User.Identity.Name).Result;
@@ -406,9 +414,10 @@ namespace EndPoint.Site.Areas.Admin.Controllers
                 PhoneNumber =  TempData["PhoneNumber"].ToString()
             });
         }
+
         // پردازش صفحه تایید شماره تلفن
         [HttpPost]
-        [Authorize]
+       
         public async Task<IActionResult> VerifyPhoneNumber(VerifyPhoneNumber verify)
         {
 

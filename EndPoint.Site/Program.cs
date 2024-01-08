@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shop35_Store.Application.Helpers;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseSqlServer(ConnectionString));
 
 builder.Services.AddIdentity<User, Role>()
+    .AddRoles<Role>()
     .AddEntityFrameworkStores<DataBaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrors>()
     .AddPasswordValidator<MyPasswordValidator>();
 
@@ -58,8 +60,9 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 });
 
-builder.Services.AddScoped<IUserClaimsPrincipalFactory<User>, AddMyClaims>();
-   
+//builder.Services.AddScoped<IUserClaimsPrincipalFactory<User>, AddMyClaims>();
+//builder.Services.AddScoped<IClaimsTransformation, AddClaim>();
+
 
 
 var app = builder.Build();
@@ -67,7 +70,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error2");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
