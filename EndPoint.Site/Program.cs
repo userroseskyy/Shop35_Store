@@ -22,6 +22,15 @@ builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<DataBaseContext>().AddDefaultTokenProviders().AddErrorDescriber<CustomIdentityErrors>()
     .AddPasswordValidator<MyPasswordValidator>();
 
+
+//builder.Services.AddAuthorization(option =>
+// option.AddPolicy("Bloop", policy =>
+// {
+//     policy.RequireClaim("Bloop");
+// }));
+
+
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     //User Setting
