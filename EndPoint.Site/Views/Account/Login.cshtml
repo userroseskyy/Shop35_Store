@@ -5,18 +5,25 @@
 }
 
 
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/font-awesome.min.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/materialdesignicons.css">
-<!-- plugin-------------------------------------->
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/bootstrap.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/owl.carousel.min.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/nice-select.css">
-<!-- main-style---------------------------------->
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/main.css">
-<link rel="stylesheet" href="~/SiteTemplate/assets/css/responsive.css">
-<link href="~/sitetemplate/assets/css/stylesheet.css" rel="stylesheet" />
 
 
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/font-awesome.min.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/materialdesignicons.css">
+    <!-- plugin-------------------------------------->
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/bootstrap.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/vendor/nice-select.css">
+    <!-- main-style---------------------------------->
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/main.css">
+    <link rel="stylesheet" href="~/SiteTemplate/assets/css/responsive.css">
+    <link href="~/sitetemplate/assets/css/stylesheet.css" rel="stylesheet" />
+</head>
+<body>
 
    
 
@@ -56,8 +63,13 @@
                     <input asp-for="ReturnUrl" type="hidden" class="form-control" />
                   
             </div>
-            <div class="form-group container">
-                    <input type="submit" value="ورود" class="btn btn-primary row col-md-12 " />
+            <div class="form-group text-center">
+                    <input type="submit" value="ورود" class="btn btn-primary col-md-8 " />
+            </div>
+            <div class="form-group text-center">
+                <a class="btn btn-info  col-md-8" asp-area="" asp-controller="account" asp-action="ExternalLogin">
+                    ورود با حساب گوگل
+                </a>
             </div>
                     </form>
       
@@ -69,8 +81,8 @@
     </div>
 </div>
 
-
-
+</body>
+</html>
 
 
 @section Scripts {

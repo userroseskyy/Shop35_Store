@@ -8,11 +8,15 @@ using Shop35_Store.Infrastructure.Service;
 using System.Configuration;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 // کنترلر مدیریت حساب کاربری
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Customer,Admin")]
+
+
+
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -90,7 +94,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             };
             var result = _userManager.CreateAsync(newUser, register.Password).Result;
            
-            if (result.Succeeded)
+            if (result.Succeeded) 
             {
                 var addRoleResult = _userManager.AddToRoleAsync(newUser, "Customer").Result;
 
@@ -209,6 +213,8 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             return View();
 
+        
+        
         }
         // صفحه ورود دو مرحله‌ای
         [HttpGet]
@@ -444,6 +450,76 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View() ;
+        }
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> ExternalLogin(string ReturnUrl)
+        {
+            string url = Url.Action(nameof(CallBac),"Account",new
+            {
+                ReturnUrl
+            });
+            
+            
+            var propertis = _signInManager.ConfigureExternalAuthenticationProperties("Google", url);
+            return new ChallengeResult("Google",propertis);
+        }
+        [AllowAnonymous]
+        public  async Task<IActionResult> CallBac(string ReturnUrl)
+        {
+            var loginInfo = await _signInManager.GetExternalLoginInfoAsync();
+            string email=loginInfo.Principal.FindFirst(ClaimTypes.Email).Value?? null;
+
+            if (email==null)
+            {
+                return RedirectToAction("Home", "error2");
+            }
+
+            string firstName = loginInfo.Principal.FindFirst(ClaimTypes.GivenName)?.Value ?? null;
+            string lastName=loginInfo.Principal.FindFirst(ClaimTypes.Surname)?.Value ?? null;
+
+            var signin = await _signInManager.ExternalLoginSignInAsync("Google", loginInfo.ProviderKey,false, true);
+            if (signin.Succeeded)
+            {
+                if(Url.IsLocalUrl(ReturnUrl))
+                {
+                    return Redirect("/");
+                }
+                return RedirectToAction("index","home");
+            }
+            else if (signin.RequiresTwoFactor) 
+             {
+                  return RedirectToAction("login","home");
+            }
+            var user= await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                User newUser=new User()
+                {
+                    UserName = email,
+                    Email = email,
+                    FirstName=firstName,
+                    LastName=lastName,
+                    EmailConfirmed=true,
+                };
+
+                var resultAddUser=_userManager.CreateAsync(newUser).Result;
+                user=newUser;
+               
+                var addRoleResult = _userManager.AddToRoleAsync(newUser, "Customer").Result;
+
+            }
+            var resultAddLogin = _userManager.AddLoginAsync(user, loginInfo).Result;
+            _signInManager.SignInAsync(user, false).Wait();
+            return Redirect("/");
+      
+        }
+
 
 
 

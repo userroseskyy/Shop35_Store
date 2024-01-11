@@ -7,8 +7,8 @@ using System.Data;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
- 
-    [Authorize(Roles="Customer")]
+
+    [Authorize(Roles = "Customer")]
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class RoleController : Controller

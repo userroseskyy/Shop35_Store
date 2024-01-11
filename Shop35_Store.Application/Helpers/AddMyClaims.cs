@@ -27,20 +27,21 @@ namespace Shop35_Store.Application.Helpers
             return identity;
         }
     }
-    //public class AddClaim : IClaimsTransformation
-    //{
-    //    public Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
-    //    {
-    //       if (principal != null)
-    //        {
-    //            var identity=principal.Identity as ClaimsIdentity;
-    //            if (identity != null)
-    //            {
-    //                identity.AddClaim(new Claim("TestClaim", "yes", ClaimValueTypes.String));
-    //            }
+    public class AddClaim : IClaimsTransformation
+    {
+        public Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
+        {
+            if (principal != null)
+            {
+                var identity = principal.Identity as ClaimsIdentity;
+                if (identity != null)
+                {
+                    identity.AddClaim(new Claim("TestClaim", "yes", ClaimValueTypes.String));
+                    identity.AddClaim(new Claim("Credit", "11000", ClaimValueTypes.String));
+                }
 
-    //        }
-    //       return Task.FromResult(principal);
-    //    }
-    //}
+            }
+            return Task.FromResult(principal);
+        }
+    }
 }
