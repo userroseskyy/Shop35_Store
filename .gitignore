@@ -367,3 +367,4 @@ FodyWeavers.xsd
 
 /Shop35_Store.Infrastructure/Service/SmsService.cs
 /EndPoint.Site/appsettings.Development.json
+/EndPoint.Site/Program.cs
