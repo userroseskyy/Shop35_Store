@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Shop35_Store.Domain.Entities.Commons;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

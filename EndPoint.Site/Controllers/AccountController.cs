@@ -9,6 +9,7 @@ using System.Configuration;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using Shop35_Store.Domain.Entities.Roles;
 
 // کنترلر مدیریت حساب کاربری
 namespace EndPoint.Site.Areas.Admin.Controllers
@@ -22,12 +23,14 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly EmailSender _emailSender;
+        private readonly RoleManager<Role> _roleManager;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration, RoleManager<Role>  roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = new EmailSender(configuration);
+            _roleManager = roleManager;
         }
 
         // صفحه اصلی حساب کاربری
@@ -92,18 +95,28 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
 
             };
-            var result = _userManager.CreateAsync(newUser, register.Password).Result;
-           
-            if (result.Succeeded) 
+            var roleExists = _roleManager.RoleExistsAsync("Customer").Result;
+
+            if (!roleExists)
             {
-                var addRoleResult = _userManager.AddToRoleAsync(newUser, "Customer").Result;
+                
+                return RedirectToAction("Error2", "home");  
+            }
+
+          
+            var result = _userManager.CreateAsync(newUser, register.Password).Result;
+
+           
+             var addRoleResult = _userManager.AddToRoleAsync(newUser, "Customer").Result;
+            if (addRoleResult.Succeeded) { 
+              
 
                 if (result.Succeeded) { 
                 var token = _userManager.GenerateEmailConfirmationTokenAsync(newUser).Result;
                 string callbakUrl = Url.Action("ConfirmEmail", "Account", new
                 { UserId = newUser.Id, token = token }, protocol: Request.Scheme);
                 string body =
-                    $"لطفا برای فعال سازی حساب کاربری خود بر روی لینک زیر کلیک نمائید.<br> <a  href={callbakUrl}> link</a>";
+                    $"لطفا برای فعال سازی حساب کاربری خود بر روی لینک زیر کلیک نمائید.<br> <a  href={callbakUrl}> لینک</a>";
                 _emailSender.SendEmail(newUser.Email, body, "فعال سازی حساب کاربر");
 
 

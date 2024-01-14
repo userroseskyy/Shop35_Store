@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shop35_Store.Application.Interfaces.Context;
-
+using Shop35_Store.Domain.Entities.Products;
 using Shop35_Store.Domain.Entities.Roles;
 
 using Shop35_Store.Domain.Entities.Users;
@@ -22,6 +22,12 @@ namespace Shop35_Store.Persistence.Context
                 
         }
 
+        public DbSet<Category> Categories { get ; set ; }
+        public DbSet<Product> Products { get ; set ; }
+        public DbSet<ProductImages> ProductImages { get; set ; }
+        public DbSet<ProductFeatures> ProductFeatures { get; set ; }
+
+        //public DbSet<Category> Categories { get ; set ; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +40,8 @@ namespace Shop35_Store.Persistence.Context
 
 
             modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Category>().HasQueryFilter(p => !p.IsRemoved);
         }
     }
 }

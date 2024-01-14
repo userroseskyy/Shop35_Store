@@ -50,9 +50,6 @@
                 <li class="has-sub nav-item">
                             <a href="/" class="menu-item">صفحه نخست</a>
                 </li>
-                        <li class="has-sub nav-item">
-                            <a href="#"><i class="icon-home"></i><span data-i18n="" class="menu-title">داشبورد</span><span class="tag badge badge-pill badge-danger mt-1">2</span></a>
-                        </li>
 
 
                 <li class="has-sub nav-item">
@@ -71,14 +68,30 @@
                     <li>
                         <a href="~/admin/role/Create" class="menu-item">افزودن نقش جدید *</a>
                     </li>
-                                <li>
-                                    <a href="~/UserClaim/index" class="menu-item">لیستClaims </a>
-                                </li>
-                                <li>
-                                    <a href="~/UserClaim/create" class="menu-item">افزودنClaim </a>
-                                </li>
+                     <li>
+                      <a href="~/UserClaim/index" class="menu-item">لیستClaims </a>
+                       </li>
+                      <li>
+                        <a href="~/UserClaim/create" class="menu-item">افزودنClaim </a>
+                       </li>
 
                 </ul>
+                        <li class="has-sub nav-item">
+                            <a href="#"><i class="icon-users"></i><span data-i18n="" class="menu-title">مدیریت دسته بندی ها</span></a>
+
+                            <ul class="menu-content">
+                        </li>
+                        <li>
+                            <a href="~/admin/categories/index" class="menu-item">لیست دسته بندی محصولات </a>
+                        </li>
+                        <li>
+                            <a href="~/admin/categories/AddNewCaregory" class="menu-item">افزودن دسته بندی جدید*</a>
+                        </li>
+                        <li>
+                            <a href="~/admin/products/AddNewProduct" class="menu-item">افزودن محصول*</a>
+                        </li>
+                            </ul>
+                            
             </div>
         </div>
         <div class="sidebar-background"></div>
@@ -428,3 +441,4 @@
 
 
     @RenderSection("Scripts", required: false )
+@RenderSection("Modals", false)

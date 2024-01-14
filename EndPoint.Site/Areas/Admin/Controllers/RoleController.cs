@@ -120,9 +120,13 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         public IActionResult Delete(DeleteRoleDto deletRole)
         {
             var role = _roleManager.FindByIdAsync(deletRole.Id).Result;
-            var result = _roleManager.DeleteAsync(role).Result;
-            if (result.Succeeded)
+
+           role.RemoveTime = DateTime.Now;
+            role.IsRemoved = true;
+            var result = _roleManager.UpdateAsync(role).Result;
+            if (role.IsRemoved == true)
             {
+            
                 return RedirectToAction("Index", "Role", new { area = "Admin" });
             }
             ViewBag.Errors = result.Errors.ToList();
