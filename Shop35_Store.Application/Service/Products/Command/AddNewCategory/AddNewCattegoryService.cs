@@ -25,6 +25,7 @@ namespace Shop35_Store.Application.Service.Products.Command.AddNewCategory
             {
                 Name = Name,
                 ParentCategory = GetParent(ParentId),
+                
             };
 
             _context.Categories.Add(category);

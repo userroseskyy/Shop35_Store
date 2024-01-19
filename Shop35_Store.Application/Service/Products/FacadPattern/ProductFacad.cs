@@ -5,6 +5,10 @@ using Shop35_Store.Application.Service.Products.Command.AddNewCategory;
 using Shop35_Store.Application.Service.Products.Command.AddNewProduct;
 using Shop35_Store.Application.Service.Products.Queries.GetAllCategories;
 using Shop35_Store.Application.Service.Products.Queries.GetCategories;
+using Shop35_Store.Application.Service.Products.Queries.GetProductDetailForAdmin;
+using Shop35_Store.Application.Service.Products.Queries.GetProductDetailForSite;
+using Shop35_Store.Application.Service.Products.Queries.GetProductForAdmin;
+using Shop35_Store.Application.Service.Products.Queries.GetProductForSite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +22,7 @@ namespace Shop35_Store.Application.Service.Products.FacadPattern
     {
         private readonly IDataBaseContext _context;
         private readonly IHostingEnvironment _environment;
-        public ProductFacad(IDataBaseContext context,IHostingEnvironment environment)
+        public ProductFacad(IDataBaseContext context, IHostingEnvironment environment)
         {
             _context = context;
             _environment = environment;
@@ -48,7 +52,7 @@ namespace Shop35_Store.Application.Service.Products.FacadPattern
         {
             get
             {
-                return _addNewProductService = _addNewProductService ?? new AddNewProductService(_context,_environment);
+                return _addNewProductService = _addNewProductService ?? new AddNewProductService(_context, _environment);
             }
         }
 
@@ -57,7 +61,42 @@ namespace Shop35_Store.Application.Service.Products.FacadPattern
         {
             get
             {
-            return  _getAllCategoriesService= _getAllCategoriesService ?? new  GetAllCategoriesService(_context);
+                return _getAllCategoriesService = _getAllCategoriesService ?? new GetAllCategoriesService(_context);
+            }
+        }
+
+        private IGetProductForSiteService  _getProductForSiteService;
+        public IGetProductForSiteService GetProductForSiteService
+        {
+            get
+            {
+                return _getProductForSiteService= _getProductForSiteService ?? new GetProductForSiteService(_context);
+            }
+        }
+        private IGetProductDetailForSiteService _getProductDetailForSiteService;
+        public IGetProductDetailForSiteService GetProductDetailForSiteService
+        {
+            get
+            {
+                return _getProductDetailForSiteService = _getProductDetailForSiteService ?? new GetProductDetailForSiteService(_context);
+            }
+        }
+
+        private IGetProductForAdminService _getProductForAdminService;
+        public IGetProductForAdminService GetProductForAdminService
+        {
+            get
+            {
+                return _getProductForAdminService = _getProductForAdminService ?? new GetProductForAdminService(_context);
+            }
+        }
+
+        private IGetProductDetailForAdminService _getProductDetailForAdminService;
+        public IGetProductDetailForAdminService GetProductDetailForAdminService
+        {
+            get
+            {
+                return _getProductDetailForAdminService = _getProductDetailForAdminService ?? new GetProductDetailForAdminService(_context);
             }
         }
     }

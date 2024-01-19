@@ -34,6 +34,7 @@ namespace Shop35_Store.Application.Service.Products.Queries.GetAllCategories
                 .ToList()
                 .Select(p => new AllCategoriesDto
                 {
+
                     Id = p.Id,
                     Name = $"{p.ParentCategory.Name} - {p.Name}",
                 }

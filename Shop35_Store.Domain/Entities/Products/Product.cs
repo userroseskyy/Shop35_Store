@@ -22,3 +22,4 @@ namespace Shop35_Store.Domain.Entities.Products
         public virtual ICollection<ProductFeatures> ProductFeatures { get; set; }
     }
 }
+

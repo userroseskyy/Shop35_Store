@@ -4,8 +4,8 @@ using Shop35_Store.Application.Interfaces.FacadPatern;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
-    //[Authorize(Roles =("Admin"))]
-    //[Authorize(Roles =("Customer"))]
+    [Authorize(Roles = ("Admin"))]
+    [Authorize(Roles = ("Customer"))]
     [Area("Admin")]
     public class CategoriesController : Controller
     {
@@ -14,6 +14,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         {
             _productFacad = productFacad;
         }
+
         public IActionResult Index(long? ParentId)
         {
           
@@ -32,6 +33,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
 
             return Json(result);
         }
+       
 
     }
 }

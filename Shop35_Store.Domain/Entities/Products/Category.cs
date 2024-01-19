@@ -10,8 +10,8 @@ namespace Shop35_Store.Domain.Entities.Products
 {
     public class Category:BaseEntity
     {
-        [Required(ErrorMessage = "نام دسته بندی الزامی است")]
-        [Display(Name = "نام دسته بندی")]
+      
+     
         public string Name { get; set; }
 
         public virtual Category ParentCategory { get; set; }
