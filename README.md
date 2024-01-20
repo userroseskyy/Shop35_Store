@@ -55,6 +55,7 @@ See CHANGELOG.md for details on what has changed in each version.
 
 Contact
 For any inquiries, please contact skyy0492@gmail.com.
+*******************
 Project completion date
 01/30/2024
 ********************
