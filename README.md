@@ -55,3 +55,8 @@ See CHANGELOG.md for details on what has changed in each version.
 
 Contact
 For any inquiries, please contact skyy0492@gmail.com.
+Project completion date
+01/30/2024
+********************
+Today, 01/20/2024
+I am building the update for the product because I have a database error
