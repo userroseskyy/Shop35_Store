@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shop35_Store.Application.Interfaces.Context;
+using Shop35_Store.Domain.Entities.HomePages;
 using Shop35_Store.Domain.Entities.Products;
 using Shop35_Store.Domain.Entities.Roles;
 
@@ -26,6 +27,8 @@ namespace Shop35_Store.Persistence.Context
         public DbSet<Product> Products { get ; set ; }
         public DbSet<ProductImages> ProductImages { get; set ; }
         public DbSet<ProductFeatures> ProductFeatures { get; set ; }
+       
+        public DbSet<Slider> sliders { get ; set ; }
 
         //public DbSet<Category> Categories { get ; set ; }
 
@@ -42,6 +45,10 @@ namespace Shop35_Store.Persistence.Context
             modelBuilder.Entity<User>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Role>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Category>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<ProductImages>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<ProductFeatures>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Slider>().HasQueryFilter(p => !p.IsRemoved);
         }
     }
 }

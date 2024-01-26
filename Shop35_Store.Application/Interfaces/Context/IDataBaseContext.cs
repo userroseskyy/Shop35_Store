@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop35_Store.Domain.Entities.HomePages;
 using Shop35_Store.Domain.Entities.Products;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace Shop35_Store.Application.Interfaces.Context
         DbSet<Product> Products { get; set; }
         DbSet<ProductImages> ProductImages { get; set; }
         DbSet<ProductFeatures> ProductFeatures { get; set; }
+        DbSet<Slider>  sliders { get; set; }
 
 
         int SaveChanges(bool acceptAllChangesOnSuccess);

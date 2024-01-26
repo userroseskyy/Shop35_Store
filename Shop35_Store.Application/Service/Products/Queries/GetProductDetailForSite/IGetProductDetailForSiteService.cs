@@ -36,6 +36,10 @@ namespace Shop35_Store.Application.Service.Products.Queries.GetProductDetailForS
                 throw new Exception("Product Not Found.....");
             }
 
+            Product.ViewCount++;
+            Product.ViewCount = _context.SaveChanges();
+
+
             return new ResultDto<ProductDetailForSiteDto>()
             {
                 Data = new ProductDetailForSiteDto

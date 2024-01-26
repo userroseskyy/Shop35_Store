@@ -1,5 +1,7 @@
 using EndPoint.Site.Models;
+using EndPoint.Site.Models.HomePage;
 using Microsoft.AspNetCore.Mvc;
+using Shop35_Store.Application.Service.Common.Queries.GetSlider;
 using System.Diagnostics;
 
 namespace EndPoint.Site.Areas.Admin.Controllers
@@ -8,14 +10,20 @@ namespace EndPoint.Site.Areas.Admin.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IGetSliderService _getSliderSevice;
+        public HomeController(ILogger<HomeController> logger,IGetSliderService getSliderSevice)
         {
             _logger = logger;
+            _getSliderSevice = getSliderSevice;
         }
 
         public IActionResult Index()
         {
-            return View();
+            HomePageViewModel homePage = new HomePageViewModel()
+            {
+                Sliders=_getSliderSevice.Execute().Data,
+            };
+            return View(homePage);
         }
 
         public IActionResult Privacy()

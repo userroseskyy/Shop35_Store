@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Shop35_Store.Application.Interfaces.Context;
-using Shop35_Store.Common;
-using Shop35_Store.Common.Dto;
+﻿using Shop35_Store.Common.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,66 +9,37 @@ namespace Shop35_Store.Application.Service.Products.Queries.GetProductForSite
 {
     public interface IGetProductForSiteService
     {
-        ResultDto<ResultProductForSiteDto> Execute(string SearchKey, int Page, long? CatId);
-    }
-    public class GetProductForSiteService : IGetProductForSiteService
-    {
-
-        private readonly IDataBaseContext _context;
-        public GetProductForSiteService(IDataBaseContext context)
-        {
-            _context = context;
-        }
-        public ResultDto<ResultProductForSiteDto> Execute(string SearchKey, int Page, long? CatId)
-        {
-            int totalRow = 0;
-            var productQuery = _context.Products
-                .Include(p => p.ProductImages).AsQueryable();
-
-            if (CatId != null)
-            {
-                productQuery = productQuery.Where(p => p.CategoryId == CatId || p.Category.ParentCategoryId == CatId).AsQueryable();
-            }
-            if (!string.IsNullOrWhiteSpace(SearchKey))
-            {
-                productQuery = productQuery.Where(p => p.Name.Contains(SearchKey) || p.Brand.Contains(SearchKey)).AsQueryable();
-            }
-
-            var product = productQuery.ToPaged(Page, 5, out totalRow);
-
-            Random rd = new Random();
-            return new ResultDto<ResultProductForSiteDto>
-            {
-                Data = new ResultProductForSiteDto
-                {
-                    TotalRow = totalRow,
-                    Products = product.Select(p => new ProductForSiteDto
-                    {
-                        Id = p.Id,
-                        Star = rd.Next(1, 5),
-                        Title = p.Name,
-                        ImageSrc = p.ProductImages.FirstOrDefault().Src,
-                        Price = p.Price
-                    }).ToList(),
-                },
-                IsSuccess = true,
-            };
-        }
+        ResultDto<ResultProductForSiteDto> Execute(ordering ordering,string SearchKey, int Page,int pageSize ,long? CatId);
     }
 
-    public class ResultProductForSiteDto
+
+    public enum ordering
     {
 
-        public List<ProductForSiteDto> Products { get; set; }
-        public int TotalRow { get; set; }
-    }
-
-    public class ProductForSiteDto
-    {
-        public long Id { get; set; }
-        public string Title { get; set; }
-        public string ImageSrc { get; set; }
-        public int Star { get; set; }
-        public int Price { get; set; }
+        NotOrder = 0,
+        /// <summary>
+        /// پربازدیدترین
+        /// </summary>
+        MostVisited = 1,
+        /// <summary>
+        /// پرفروشترین
+        /// </summary>
+        Bestselling = 2,
+        /// <summary>
+        /// محبوبترین
+        /// </summary>
+        MostPopular = 3,
+        /// <summary>
+        /// جدیدترین
+        /// </summary>
+        theNewest = 4,
+        /// <summary>
+        /// ارزانترین
+        /// </summary>
+        Cheapest = 5,
+        /// <summary>
+        /// گرانترین
+        /// </summary>
+        theMostExpensive = 6
     }
 }
