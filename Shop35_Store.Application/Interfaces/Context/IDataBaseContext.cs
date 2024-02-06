@@ -19,6 +19,8 @@ namespace Shop35_Store.Application.Interfaces.Context
         DbSet<ProductImages> ProductImages { get; set; }
         DbSet<ProductFeatures> ProductFeatures { get; set; }
         DbSet<Slider>  sliders { get; set; }
+        DbSet<HomePageImages>  HomePageImages { get; set; }
+
 
 
         int SaveChanges(bool acceptAllChangesOnSuccess);

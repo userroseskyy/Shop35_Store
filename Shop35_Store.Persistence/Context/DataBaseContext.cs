@@ -29,6 +29,7 @@ namespace Shop35_Store.Persistence.Context
         public DbSet<ProductFeatures> ProductFeatures { get; set ; }
        
         public DbSet<Slider> sliders { get ; set ; }
+        public DbSet<HomePageImages> HomePageImages { get ; set ; }
 
         //public DbSet<Category> Categories { get ; set ; }
 
@@ -49,6 +50,7 @@ namespace Shop35_Store.Persistence.Context
             modelBuilder.Entity<ProductImages>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<ProductFeatures>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Slider>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<HomePageImages>().HasQueryFilter(p => !p.IsRemoved);
         }
     }
 }
