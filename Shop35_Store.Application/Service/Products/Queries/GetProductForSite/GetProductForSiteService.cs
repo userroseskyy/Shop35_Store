@@ -70,6 +70,7 @@ namespace Shop35_Store.Application.Service.Products.Queries.GetProductForSite
                         Star = rd.Next(1, 5),
                         Title = p.Name,
                         ImageSrc = p.ProductImages.FirstOrDefault().Src,
+                        
                         Price = p.Price
                     }).ToList(),
                 },

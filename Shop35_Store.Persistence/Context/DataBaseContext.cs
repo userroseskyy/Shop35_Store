@@ -31,7 +31,7 @@ namespace Shop35_Store.Persistence.Context
         public DbSet<Slider> sliders { get ; set ; }
         public DbSet<HomePageImages> HomePageImages { get ; set ; }
 
-        //public DbSet<Category> Categories { get ; set ; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

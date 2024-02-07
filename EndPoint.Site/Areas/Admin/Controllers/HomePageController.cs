@@ -16,6 +16,7 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             }
             public IActionResult Index()
             {
+
                 return View();
             }
             [HttpGet]
