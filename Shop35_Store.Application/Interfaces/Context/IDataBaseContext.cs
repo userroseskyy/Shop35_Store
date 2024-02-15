@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Shop35_Store.Domain.Entities.Carts;
 using Shop35_Store.Domain.Entities.HomePages;
 using Shop35_Store.Domain.Entities.Products;
 using System;
@@ -20,6 +21,8 @@ namespace Shop35_Store.Application.Interfaces.Context
         DbSet<ProductFeatures> ProductFeatures { get; set; }
         DbSet<Slider>  sliders { get; set; }
         DbSet<HomePageImages>  HomePageImages { get; set; }
+        DbSet<Cart>  Cart { get; set; }
+        DbSet<CartItem>  CartItem { get; set; }
 
 
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Shop35_Store.Application.Interfaces.Context;
+using Shop35_Store.Domain.Entities.Carts;
 using Shop35_Store.Domain.Entities.HomePages;
 using Shop35_Store.Domain.Entities.Products;
 using Shop35_Store.Domain.Entities.Roles;
@@ -30,8 +31,8 @@ namespace Shop35_Store.Persistence.Context
        
         public DbSet<Slider> sliders { get ; set ; }
         public DbSet<HomePageImages> HomePageImages { get ; set ; }
-
-        
+        public DbSet<Cart> Cart { get ; set ; }
+        public DbSet<CartItem> CartItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,6 +52,8 @@ namespace Shop35_Store.Persistence.Context
             modelBuilder.Entity<ProductFeatures>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<Slider>().HasQueryFilter(p => !p.IsRemoved);
             modelBuilder.Entity<HomePageImages>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<Cart>().HasQueryFilter(p => !p.IsRemoved);
+            modelBuilder.Entity<CartItem>().HasQueryFilter(p => !p.IsRemoved);
         }
     }
 }
