@@ -39,6 +39,8 @@ namespace Shop35_Store.Application.Service.Carts
                 _context.SaveChanges();
                 cart = NewCart;
 
+
+
             }
             var product = _context.Products.Find(ProductId);
             var CartItem=_context.CartItem.Where(p=> p.ProductId == ProductId&&p.CartId==cart.UserId).FirstOrDefault();
@@ -72,6 +74,7 @@ namespace Shop35_Store.Application.Service.Carts
            var cart = _context.Cart
                 .Include(p=> p.CartItems)
                 .ThenInclude(p=>p.Product)
+                .ThenInclude(p=> p.ProductImages)
                 .Where(p=> p.BrowserId== BrowserId&&p.Finished==false)
                 .OrderByDescending(p=>p.UserId)
                 .FirstOrDefault();
@@ -81,9 +84,13 @@ namespace Shop35_Store.Application.Service.Carts
                 {
                     CartItems = cart.CartItems.Select(p => new CartItemDto
                     {
+                        Id=p.Id,
+
                         Count = p.count,
                         Price = p.Price,
-                        Product = p.Product.Name
+                        Product = p.Product.Name,
+                        Images=p.Product?.ProductImages?.FirstOrDefault().Src??"",
+
                     }).ToList(),
                 },
                 IsSuccess = true,
@@ -125,7 +132,9 @@ namespace Shop35_Store.Application.Service.Carts
     }
     public class CartItemDto
     {
-        public string Product { get; set; }
+        public long Id{get; set; }
+    public string Product { get; set; }
+        public string Images {  get; set; }
         public int Count { get; set; }
         public int Price { get; set; }
     }
