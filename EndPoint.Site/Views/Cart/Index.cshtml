@@ -29,8 +29,8 @@
                                 <tr>
                                     <th scope="row" class="product-cart-name">
                                         <div class="product-thumbnail-img">
-                                            <a href="#">
-                                                <img src="@* ~/@item.Images *@">
+                                            <a href="~/cart/remove?ProductId=@item.Id" class="remove">
+                                                <img src="~/@item.Images ">
                                             </a>
                                             <div class="product-remove">
                                                 <a href="~/cart/remove?ProductId=@item.Id" class="remove">
@@ -67,7 +67,7 @@
                                                 int total = item.Price * item.Count;
                                                 sumTota += total;
                                             } 
-                                             @total.ToString("n0"); 
+                                             @total.ToString("n0")
                                             <span>تومان</span>
                                         </span>
                                     </td>

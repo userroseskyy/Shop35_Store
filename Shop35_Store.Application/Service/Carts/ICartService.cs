@@ -13,8 +13,10 @@ namespace Shop35_Store.Application.Service.Carts
    public interface ICartService
     {
         ResultDto AddToCart(long ProductId, Guid BrowserId);
-        ResultDto removeFromCartt(long ProductId, Guid BrowserId);
+        ResultDto removeFromCart(long ProductId, Guid BrowserId);
         ResultDto<CartDto> GetMyCart(Guid BrowserId);
+        ResultDto Add(long CartItemId);
+        ResultDto LowOff(long CartItemId);
     }
 
 
@@ -25,6 +27,19 @@ namespace Shop35_Store.Application.Service.Carts
         {
             _context = context;
         }
+
+        public ResultDto Add(long CartItemId)
+        {
+            var cartItem = _context.CartItem.Find(CartItemId);
+            
+            cartItem.count++;
+            _context.SaveChanges();
+            return new ResultDto()
+            {
+                IsSuccess = true,
+            };
+        }
+
         public ResultDto AddToCart(long ProductId, Guid BrowserId)
         {
            var cart=_context.Cart.Where(p=> p.BrowserId == BrowserId&& p.Finished==false).FirstOrDefault();
@@ -97,7 +112,30 @@ namespace Shop35_Store.Application.Service.Carts
             };
         }
 
-        public ResultDto removeFromCartt(long ProductId, Guid BrowserId)
+        public ResultDto LowOff(long CartItemId)
+        {
+            var cartItem = _context.CartItem.Find(CartItemId);
+            if (cartItem.count <= 1)
+            {
+                return new ResultDto()
+                {
+                    IsSuccess = false,
+                    Message = ""
+                };
+
+            }
+
+            cartItem.count--;
+
+            _context.SaveChanges();
+            return new ResultDto()
+            {
+                IsSuccess = true,
+            };
+           
+        }
+
+        public ResultDto removeFromCart(long ProductId, Guid BrowserId)
         {
             var cartItem=_context.CartItem.Where(p=> p.Cart.BrowserId== BrowserId).FirstOrDefault();
             if(cartItem != null)

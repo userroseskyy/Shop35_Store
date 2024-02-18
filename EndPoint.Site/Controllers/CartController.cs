@@ -26,5 +26,20 @@ namespace EndPoint.Site.Controllers
             var resultAdd = _cartService.AddToCart(ProductId, cookiesManeger.GetBrowserId(HttpContext));
             return RedirectToAction("Index");
         }
+        public IActionResult Add(long CartItemId)
+        {
+            _cartService.Add(CartItemId);
+            return RedirectToAction("index");
+        }
+        public IActionResult LowOff(long CartItemId)
+        {
+            _cartService.LowOff(CartItemId);
+            return RedirectToAction("index");
+        }
+        public IActionResult Remove(long ProductId)
+        {
+            _cartService.removeFromCart(ProductId, cookiesManeger.GetBrowserId(HttpContext));
+            return RedirectToAction("index");
+        }
     }
 }
