@@ -93,6 +93,20 @@ namespace Shop35_Store.Application.Service.Carts
                 .Where(p=> p.BrowserId== BrowserId&&p.Finished==false)
                 .OrderByDescending(p=>p.UserId)
                 .FirstOrDefault();
+
+            if (cart == null)
+            {
+                // اگر سبد خرید وجود ندارد، می‌توانید عملیات لازم را انجام دهید، مانند ایجاد یک سبد خرید جدید یا ایجاد یک شیء خالی برای ارسال به کلاینت
+                return new ResultDto<CartDto>()
+                {
+                    IsSuccess = false,
+                   Message = "سبد خریدی یافت نشد."
+                };
+            }
+
+           
+       
+
             return new ResultDto<CartDto>()
             {
                 Data = new CartDto()
@@ -113,6 +127,7 @@ namespace Shop35_Store.Application.Service.Carts
                 },
                 IsSuccess = true,
             };
+            
         }
 
         public ResultDto LowOff(long CartItemId)

@@ -10,8 +10,8 @@ using System.Configuration;
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
 
-    [Authorize(Roles = "Customer")]
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Customer")]
+    //[Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class UserController : Controller
     {
@@ -176,19 +176,17 @@ namespace EndPoint.Site.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserRoles(string Id)
+        public async Task<IActionResult> UserRoles(string Id)
         {
-            var user = _userManager.FindByIdAsync(Id).Result;
-            var roles = _userManager.GetRolesAsync(user).Result;
+            var user = await _userManager.FindByIdAsync(Id);
+            var roles = await _userManager.GetRolesAsync(user);
             TempData["UserId"] = Id;
             ViewBag.UserInfo = $"نام کاربر : {user.FirstName} {user.LastName} ایمیل کاربر: {user.Email}";
             return View(roles);
-
-
         }
-        
 
-            [HttpPost]
+
+        [HttpPost]
             public IActionResult DeleteRole(string role)
             {
             var Id = TempData["UserId"]?.ToString();

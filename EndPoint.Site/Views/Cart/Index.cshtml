@@ -6,7 +6,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@if (Model != null){
 <section class="cart-home">
     <div class="post-item-cart d-block order-2">
         <div class="content-page">
@@ -116,7 +116,7 @@
                             </li>
                             <li class="order-total">
                                 <span class="amount"> مجموع</span>
-                                <span> 6,032,000 تومان</span>
+                                <span> @sumTota.ToString("n0") تومان</span>
                             </li>
                             <li class="discount-code">
                                 <div class=" align-items-center">
@@ -141,7 +141,26 @@
             </div>
         </div>
     </div>
-</section>
+    </section>
+
+}
+else
+{
+    <div class="empty-cart text-center">
+       
+        <h2>سبد خرید شما خالی است</h2>
+        
+        <p>به نظر می‌رسد که هیچ موردی در سبد خرید شما وجود ندارد. برای اضافه کردن محصولات، می‌توانید به فروشگاه بروید و محصولات را به سبد خرید خود اضافه کنید.</p>
+        <a href="/" class="btn btn-primary">به فروشگاه بروید</a>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+    </div>
+   
+
+}    
 
 
 @section Scripts

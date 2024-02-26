@@ -34,9 +34,9 @@ namespace EndPoint.Site.Areas.Admin.Controllers
             {
                 Sliders=_getSliderSevice.Execute().Data,
                 pageImage=_homePageService.Execute().Data,
-                Camera = _productFacad.GetProductForSiteService.Execute(ordering.theNewest, null, 1, 6, 37
+                Camera = _productFacad.GetProductForSiteService.Execute(ordering.theNewest, null, 1, 6, 15
                 ).Data.Products,
-                Mobile = _productFacad.GetProductForSiteService.Execute(ordering.theNewest, null, 1, 6, 29
+                Mobile = _productFacad.GetProductForSiteService.Execute(ordering.theNewest, null, 1, 6, 1
                 ).Data.Products,
 
             };

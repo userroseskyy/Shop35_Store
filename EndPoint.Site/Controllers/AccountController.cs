@@ -14,7 +14,7 @@ using Shop35_Store.Domain.Entities.Roles;
 // کنترلر مدیریت حساب کاربری
 namespace EndPoint.Site.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Customer,Admin")]
+    //[Authorize(Roles = "Customer,Admin")]
 
 
 
