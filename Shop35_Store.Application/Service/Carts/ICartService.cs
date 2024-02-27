@@ -96,7 +96,7 @@ namespace Shop35_Store.Application.Service.Carts
 
             if (cart == null)
             {
-                // اگر سبد خرید وجود ندارد، می‌توانید عملیات لازم را انجام دهید، مانند ایجاد یک سبد خرید جدید یا ایجاد یک شیء خالی برای ارسال به کلاینت
+             
                 return new ResultDto<CartDto>()
                 {
                     IsSuccess = false,
